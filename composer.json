@@ -1,0 +1,31 @@
+{
+  "name": "afosto/ecs",
+  "description": "Afosto PostNL ECS Client",
+  "type": "package",
+  "keywords": [
+    "postnl",
+    "ecs",
+    "client"
+  ],
+  "homepage": "https://afosto.com",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Afosto Team",
+      "homepage": "https://afosto.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Afosto\\Ecs\\": "src"
+    }
+  },
+  "require": {
+    "league/flysystem-sftp": "^1.0",
+    "league/flysystem": "^1.0",
+    "sabre/xml": "^1.5",
+    "filp/whoops": "^2.1",
+    "afosto/bp": "^0.1.1",
+    "symfony/var-dumper": "^3.2"
+  }
+}

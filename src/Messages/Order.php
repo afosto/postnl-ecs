@@ -1,0 +1,56 @@
+<?php
+
+namespace Afosto\Ecs\Messages;
+
+use Afosto\Ecs\Components\Message;
+use Afosto\Ecs\Models\Order as Model;
+
+class Order extends Message {
+
+    /**
+     * Add a part to the message
+     *
+     * @param $part
+     * @return void
+     */
+    public function addMessagePart($part) {
+        if ($part instanceof Model) {
+            $this->parts[] = $part;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFileName() {
+        return 'ORD' . parent::getFileName();
+    }
+
+    /**
+     * Returns the name of the directory where to store the xml file into
+     * @return string
+     */
+    public function getDirectory() {
+        return 'Order';
+    }
+
+    /**
+     * Returns the message type
+     * @return string
+     */
+    protected function getType() {
+        return 'deliveryOrder';
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function toArray() {
+        $array = [];
+        foreach ($this->parts as $order) {
+            $array['deliveryOrders'][] = ['deliveryOrder' => $order->getAttributes()];
+        }
+
+        return $array;
+    }
+}
