@@ -2,6 +2,7 @@
 
 Use this client to convieniently interact with PostNL ECS . This PHP package was developed by Afosto to make a reliable connection between Afosto (Retail Software) and PostNL ECS and provides all the basic functionality.
 
+
 ## Getting Started
 
 Simply follow the installation instructions. You will need an account at PostNL ECS that is set up for you to use.
@@ -19,6 +20,7 @@ Installing is easy through [Composer](http://www.getcomposer.org/).
 ```
 composer require afosto/fp
 ```
+
 
 ## Examples
 
@@ -43,6 +45,7 @@ Initialze the application with the configuration
 //Init with config parameters
 App::init($config);
 ```
+
 
 ### Send a product
 
@@ -75,6 +78,7 @@ $message->download();
 
 Now the product should be available in ECS. 
 
+
 ### Stock updates
 To parse a batch of stock messages, use the following code.
 
@@ -94,12 +98,15 @@ $stockListUpdates->markAsRead();
 
 ```
 
+
 ### Other examples
 In the examples directory you will find more examples of this project.
+
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/afosto/dnl/tags). 
+
 
 ## License
 
