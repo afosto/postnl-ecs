@@ -18,7 +18,7 @@ What things you need to install the software and how to install them
 Installing is easy through [Composer](http://www.getcomposer.org/). 
 
 ```
-composer require afosto/e
+composer require afosto/ecs
 ```
 
 
