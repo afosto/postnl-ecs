@@ -20,7 +20,7 @@ Installing is easy through [Composer](http://www.getcomposer.org/).
 composer require afosto/fp
 ```
 
-##Examples
+## Examples
 
 Now, to insert a product at ECS, use the following code.
 
@@ -44,7 +44,7 @@ Initialze the application with the configuration
 App::init($config);
 ```
 
-###Send a product
+### Send a product
 
 Build the product object
 
@@ -75,7 +75,7 @@ $message->download();
 
 Now the product should be available in ECS. 
 
-###Stock updates
+### Stock updates
 To parse a batch of stock messages, use the following code.
 
 ```php
@@ -94,7 +94,7 @@ $stockListUpdates->markAsRead();
 
 ```
 
-###Other examples
+### Other examples
 In the examples directory you will find more examples of this project.
 
 ## Versioning
