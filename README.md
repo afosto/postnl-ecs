@@ -20,11 +20,13 @@ Installing is easy through [Composer](http://www.getcomposer.org/).
 composer require afosto/fp
 ```
 
+##Examples
+
 Now, to insert a product at ECS, use the following code.
 
-```php
+First set some configuration
 
-//Obtain these parameters from DNL
+```php
 $config = [
     'host'       => 'sftp-postnlint-accp.xs4.mendix.net',
     'port'       => 22,
@@ -33,9 +35,20 @@ $config = [
     'root'       => '/home/{username}/' 
 ];
 
+```
+
+Initialze the application with the configuration
+
+```php
 //Init with config parameters
 App::init($config);
+```
 
+###Send a product
+
+Build the product object
+
+```php
 $product = new Product();
 $product->sku = 'ART-1-TEST';
 $product->shortDescription = 'Test article';
@@ -50,6 +63,9 @@ $product->height = $product->weight = $product->depth = $product->width = 1;
 $message = new ProductMessage(1);
 $message->addMessagePart($product);
 
+```
+Now we are ready to send, show (output in browser) or download the message (XML file)
+```php
 $message->send();
 //Or for debugging show
 $message->show();
@@ -57,7 +73,10 @@ $message->show();
 $message->download();
 ```
 
-Now the product should be available in ECS. To parse a batch of stock messages, use the following code.
+Now the product should be available in ECS. 
+
+###Stock updates
+To parse a batch of stock messages, use the following code.
 
 ```php
 $stockListUpdates = new StockList();
@@ -74,6 +93,9 @@ foreach ($stockListUpdates->models as $model) {
 $stockListUpdates->markAsRead();
 
 ```
+
+###Other examples
+In the examples directory you will find more examples of this project.
 
 ## Versioning
 
