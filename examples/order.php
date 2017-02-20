@@ -44,6 +44,15 @@ $order->insertOrderLine('SP-POV-POL-19', 1);
 $message = new OrderMessage(1);
 $message->addMessagePart($order);
 
+//To send multiple orders in 1 one message repeat the previous line or insert as array:
+$order2 = clone $order;
+$order2->orderNumber += 1;
+
+$order3 = clone $order2;
+$order3->orderNumber += 1;
+
+$message->addMessagePart([$order2, $order3]);
+
 //Send the message
 $message->send();
 

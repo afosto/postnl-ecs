@@ -12,7 +12,7 @@ App::init($config);
 
 $stockListUpdates = new StockList();
 
-foreach ($stockListUpdates->models as $model) {
+foreach ($stockListUpdates->getUpdates() as $model) {
     //Do something with the message
     $message = [
         'sku'   => $model->sku, //The product reference

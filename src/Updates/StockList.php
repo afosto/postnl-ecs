@@ -8,7 +8,6 @@ use Afosto\Ecs\Components\UpdateMessage;
  * Class StockList returns all the stock
  *
  * @package Afosto\Ecs\Updates
- * @property Stock[] $models
  */
 class StockList extends UpdateMessage {
 
@@ -29,6 +28,15 @@ class StockList extends UpdateMessage {
         }
 
         return $models;
+    }
+
+    /**
+     * Returns stock models
+     *
+     * @return Stock[]
+     */
+    public function getUpdates() {
+        return parent::getUpdates();
     }
 
     /**

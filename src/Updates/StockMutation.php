@@ -34,6 +34,15 @@ class StockMutation extends UpdateMessage {
     }
 
     /**
+     * Returns stock mutations
+     *
+     * @return Stock[]
+     */
+    public function getUpdates() {
+        return parent::getUpdates();
+    }
+
+    /**
      * Return the directory name
      * @return string
      */

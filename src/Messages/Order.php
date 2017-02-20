@@ -3,21 +3,8 @@
 namespace Afosto\Ecs\Messages;
 
 use Afosto\Ecs\Components\Message;
-use Afosto\Ecs\Models\Order as Model;
 
 class Order extends Message {
-
-    /**
-     * Add a part to the message
-     *
-     * @param $part
-     * @return void
-     */
-    public function addMessagePart($part) {
-        if ($part instanceof Model) {
-            $this->parts[] = $part;
-        }
-    }
 
     /**
      * @return string

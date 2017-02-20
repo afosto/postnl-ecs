@@ -8,7 +8,6 @@ use Afosto\Ecs\Models\TrackTrace;
  * Class Shipment returns shipment updates (trackTrace for orderNumber)
  *
  * @package Afosto\Ecs\Updates
- * @property TrackTrace[] $models
  */
 class Shipment extends UpdateMessage {
 
@@ -24,10 +23,20 @@ class Shipment extends UpdateMessage {
         if ($data['type'] == $this->getType()) {
             $model = new TrackTrace();
             $model->setAttributes($data[$this->getType()]);
+            $model->validate();
             $models[] = $model;
         }
 
         return $models;
+    }
+
+    /**
+     * Returns trackTrace models
+     *
+     * @return TrackTrace[]
+     */
+    public function getUpdates() {
+        return parent::getUpdates();
     }
 
     /**

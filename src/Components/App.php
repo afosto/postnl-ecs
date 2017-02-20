@@ -27,21 +27,20 @@ class App {
      */
     public static function init($config) {
         if (self::$_app === null) {
-            $adapter = new SftpAdapter(array_merge($config, ['timeout' => 10]));
-            $fileSystem = new Filesystem($adapter);
-            $app = new App();
-            $app->setFilesystem($fileSystem);
-            self::$_app = $app;
+            self::$_app = new App();
+            self::$_app->setFilesystem(new Filesystem(new SftpAdapter(array_merge($config, ['timeout' => 10]))));
         }
     }
 
     /**
+     * Return the bootstrapped instance
+     *
      * @return App
      * @throws AppException
      */
     public static function getInstance() {
         if (self::$_app === null) {
-            throw new AppException('Not instantiated');
+            throw new AppException('App not instantiated: call init first');
         }
 
         return self::$_app;

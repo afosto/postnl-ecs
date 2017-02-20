@@ -1,7 +1,11 @@
 # PostNL ECS
 
-Use this client to convieniently interact with PostNL ECS . This PHP package was developed by Afosto to make a reliable connection between Afosto (Retail Software) and PostNL ECS and provides all the basic functionality.
+Use this client to convieniently interact with PostNL ECS . This PHP package was developed by Afosto to make a reliable connection between Afosto (Retail Software) and PostNL ECS and provides the following functionality:
 
+- send product information to ECS
+- send order information to ECS
+- receive stock information (mutations or full list)
+- receive shipment updates (track&trace codes)
 
 ## Getting Started
 
@@ -26,7 +30,7 @@ composer require afosto/ecs
 
 Now, to insert a product at ECS, use the following code.
 
-First set some configuration
+First set some configuration parameters:
 
 ```php
 $config = [
@@ -42,10 +46,8 @@ $config = [
 Initialze the application with the configuration
 
 ```php
-//Init with config parameters
 App::init($config);
 ```
-
 
 ### Send a product
 
@@ -55,27 +57,29 @@ Build the product object
 $product = new Product();
 $product->sku = 'ART-1-TEST';
 $product->shortDescription = 'Test article';
-
-//Make sure we use a valid EAN13
 $product->ean = '1000000000016';
-
-//Insert fictional parameters
 $product->height = $product->weight = $product->depth = $product->width = 1;
 
-//Send the message, insert a message number
-$message = new ProductMessage(1);
-$message->addMessagePart($product);
-
 ```
-Now we are ready to send, show (output in browser) or download the message (XML file)
+Make a message container and insert a message number (in this case 1) and add the product and send the message:
+```php
+$message = new ProductMessage(1);
+```
+Insert a single product or add multiple:
+```php
+$message->addMessagePart($product);
+$message->addMessagePart([$product2, $product3]);
+```
+Now send the message:
 ```php
 $message->send();
-//Or for debugging show
+
+```
+For debugging you can also download or show the XML file:
+```php
 $message->show();
-//or download the XML
 $message->download();
 ```
-
 Now the product should be available in ECS. 
 
 
@@ -84,20 +88,23 @@ To parse a batch of stock messages, use the following code.
 
 ```php
 $stockListUpdates = new StockList();
-
-foreach ($stockListUpdates->models as $model) {
+```
+Load the messages (XML files from the SFTP server):
+```php
+foreach ($stockListUpdates->getModels() as $model) {
     //Do something with the message
     $message = [
         'sku'   => $model->sku, 
         'count' => $model->count,
     ];
 }
+```
 
-//Mark the processed messages as read (they will be deleted)
+Mark the processed messages as read (they will be deleted):
+```php
 $stockListUpdates->markAsRead();
 
 ```
-
 
 ### Other examples
 In the examples directory you will find more examples of this project.

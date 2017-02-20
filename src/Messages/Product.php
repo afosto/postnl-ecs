@@ -8,19 +8,6 @@ use Afosto\Ecs\Models\Product as Model;
 class Product extends Message {
 
     /**
-     * Add a part to the message
-     *
-     * @param $part
-     *
-     * @return void
-     */
-    public function addMessagePart($part) {
-        if ($part instanceof Model) {
-            $this->parts[] = $part;
-        }
-    }
-
-    /**
      * @return string
      */
     protected function getType() {

@@ -46,6 +46,23 @@ abstract class Message {
     }
 
     /**
+     * Add a part to the message
+     *
+     * @param $part
+     *
+     * @return void
+     */
+    public function addMessagePart($part) {
+        if ($part instanceof Model) {
+            $this->parts[] = $part;
+        } else {
+            foreach ($part as $model) {
+                $this->addMessagePart($model);
+            }
+        }
+    }
+
+    /**
      * Send the message
      * @return bool
      * @throws MessageException
@@ -101,6 +118,8 @@ abstract class Message {
     }
 
     /**
+     * Returns the XML
+     *
      * @return string
      */
     private function _getXml() {

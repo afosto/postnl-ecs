@@ -12,7 +12,7 @@ App::init($config);
 
 $shipmentUpdates = new Shipment();
 
-foreach ($shipmentUpdates->models as $model) {
+foreach ($shipmentUpdates->getUpdates() as $model) {
     //Do something with the message
     $message = [
         'trackTrace'  => $model->trackAndTraceCode,
