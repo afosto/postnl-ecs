@@ -40,7 +40,6 @@ $config = [
     'privateKey' => '',
     'root'       => '/home/{username}/' 
 ];
-
 ```
 
 Initialze the application with the configuration
@@ -59,7 +58,6 @@ $product->sku = 'ART-1-TEST';
 $product->shortDescription = 'Test article';
 $product->ean = '1000000000016';
 $product->height = $product->weight = $product->depth = $product->width = 1;
-
 ```
 Make a message container and insert a message number (in this case 1) and add the product and send the message:
 ```php
@@ -73,7 +71,6 @@ $message->addMessagePart([$product2, $product3]);
 Now send the message:
 ```php
 $message->send();
-
 ```
 For debugging you can also download or show the XML file:
 ```php
@@ -103,7 +100,6 @@ foreach ($stockListUpdates->getModels() as $model) {
 Mark the processed messages as read (they will be deleted):
 ```php
 $stockListUpdates->markAsRead();
-
 ```
 
 ### Other examples
