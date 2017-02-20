@@ -48,46 +48,6 @@ use Afosto\Ecs\Components\Model;
 class Order extends Model {
 
     /**
-     * PostNL standard
-     */
-    const PROVIDER_STANDARD = '03085';
-
-    /**
-     * PostNL home address only & signature when received
-     */
-    CONST PROVIDER_HOME_ADDRESS_SIGNATURE = '03089';
-
-    /**
-     * PostNL signature when received
-     */
-    CONST PROVIDER_SIGNATURE = '03189';
-
-    /**
-     * PostNL standard home address only
-     */
-    CONST PROVIDER_HOME_ADDRESS_STANDARD = '03385';
-
-    /**
-     * Receive before 10 o'clock
-     */
-    CONST TIMING_BEFORE_10 = '118|007';
-
-    /**
-     * Receive before 12 o'clock
-     */
-    CONST TIMING_BEFORE_12 = '118|008';
-
-    /**
-     * Receive in the evening
-     */
-    CONST TIMING_EVENING = '118|006';
-
-    /**
-     * Sunday delivery
-     */
-    CONST TIMING_SUNDAY = '101|008';
-
-    /**
      * @var string
      */
     private $_shipmentProvider;

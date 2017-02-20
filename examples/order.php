@@ -9,6 +9,7 @@ use Afosto\Ecs\Models\Order;
 use Afosto\Ecs\Messages\Order as OrderMessage;
 use Afosto\Ecs\Components\App;
 use Afosto\Ecs\Helpers\MessageHelper;
+use Afosto\Ecs\Helpers\ShipmentMethodHelper;
 
 //Init with config parameters (see examples/config.php)
 App::init($config);
@@ -36,7 +37,7 @@ $order->setAddresses($address);
 //Fictional order number
 $order->orderNumber = time();
 $order->setDateTime(new DateTime());
-$order->setShipmentOptions(Order::PROVIDER_STANDARD);
+$order->setShipmentOptions(ShipmentMethodHelper::PROVIDER_STANDARD);
 $order->insertOrderLine('SP-POV-DIV-TSA', 2);
 $order->insertOrderLine('SP-POV-POL-19', 1);
 
