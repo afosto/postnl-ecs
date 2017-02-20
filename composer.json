@@ -24,8 +24,10 @@
     "league/flysystem-sftp": "^1.0",
     "league/flysystem": "^1.0",
     "sabre/xml": "^1.5",
+    "afosto/bp": "^0.1.1"
+  },
+  "require-dev": {
     "filp/whoops": "^2.1",
-    "afosto/bp": "^0.1.1",
     "symfony/var-dumper": "^3.2"
   }
 }
