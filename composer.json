@@ -1,5 +1,5 @@
 {
-  "name": "afosto/ecs",
+  "name": "afosto/postnl-ecs",
   "description": "Afosto PostNL ECS Client",
   "type": "package",
   "keywords": [
