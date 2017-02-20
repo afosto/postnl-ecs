@@ -88,7 +88,7 @@ $stockListUpdates = new StockList();
 ```
 Load the messages (XML files from the SFTP server):
 ```php
-foreach ($stockListUpdates->getModels() as $model) {
+foreach ($stockListUpdates->getUpdates() as $model) {
     //Do something with the message
     $message = [
         'sku'   => $model->sku, 
