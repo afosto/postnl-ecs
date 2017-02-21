@@ -37,7 +37,7 @@ $order->setAddresses($address);
 //Fictional order number
 $order->orderNumber = time();
 $order->setDateTime(new DateTime());
-$order->setShipmentOptions(ShipmentMethodHelper::PROVIDER_STANDARD);
+$order->setShipmentOptions(ShipmentMethodHelper::METHOD_STANDARD);
 $order->insertOrderLine('SP-POV-DIV-TSA', 2);
 $order->insertOrderLine('SP-POV-POL-19', 1);
 

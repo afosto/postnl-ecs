@@ -80,12 +80,15 @@ class Order extends Model {
     }
 
     /**
-     * @param      $provider
+     *
+     * @param      $method
      * @param null $timing
      */
-    public function setShipmentOptions($provider, $timing = null) {
-        $this->_shipmentProvider = $provider;
-        $this->_shipmentTiming = $timing;
+    public function setShipmentOptions($method, $timing = null) {
+        if ($this->_shipmentProvider === null) {
+            $this->_shipmentProvider = $method;
+            $this->_shipmentTiming = $timing;
+        }
     }
 
     /**
@@ -112,6 +115,16 @@ class Order extends Model {
      */
     public function setDeliveryDateTime(\DateTime $dateTime) {
         $this->_deliveryDateTime = $dateTime;
+    }
+
+    /**
+     * Update the model to ship to a pickup point
+     *
+     * @param PickupPoint $pickupPoint
+     */
+    public function setPickupPoint(PickupPoint $pickupPoint) {
+        $this->_setProperties($pickupPoint, 'shipTo');
+        $this->_shipmentProvider = '03533';
     }
 
     /**
@@ -167,7 +180,7 @@ class Order extends Model {
     }
 
     /**
-     *
+     * Return mapping
      */
     protected function getMap() {
         return [
@@ -184,6 +197,10 @@ class Order extends Model {
         ];
     }
 
+    /**
+     * Return rules
+     * @return array
+     */
     public function getRules() {
         return [
             ['orderNumber', 'string', true, 10],
@@ -198,7 +215,7 @@ class Order extends Model {
             ['shipToCompany', 'string', true],
             ['shipToStreet', 'string', true],
             ['shipToHouseNumber', 'string', true],
-            ['shipToHouseNumberSuffix', 'string', true],
+            ['shipToHouseNumberSuffix', 'string', false],
             ['shipToPostalCode', 'string', true],
             ['shipToCity', 'string', true],
             ['shipToCountryCode', 'string', true],
@@ -210,7 +227,7 @@ class Order extends Model {
             ['invoiceToCompany', 'string', true],
             ['invoiceToStreet', 'string', true],
             ['invoiceToHouseNumber', 'string', true],
-            ['invoiceToHouseNumberSuffix', 'string', true],
+            ['invoiceToHouseNumberSuffix', 'string', false],
             ['invoiceToPostalCode', 'string', true],
             ['invoiceToCity', 'string', true],
             ['invoiceToCountryCode', 'string', true],
@@ -226,6 +243,7 @@ class Order extends Model {
     }
 
     /**
+     * Set the properties for shipTo or invoiceTo
      * @param        $address
      * @param string $prefix
      */
