@@ -160,9 +160,9 @@ class ShipmentMethodHelper {
         }
 
         if (count($availableMethods) > 0) {
-            return current($availableMethods)['label'];
+            return current($availableMethods)['code'];
         } else {
-            return current($beforeNextFilters)['label'];
+            return current($beforeNextFilters)['code'];
         }
     }
 

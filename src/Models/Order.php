@@ -63,6 +63,26 @@ class Order extends Model {
     private $_lines = [];
 
     /**
+     * @var Customer
+     */
+    private $_customer;
+
+    /**
+     * @var Address
+     */
+    private $_invoiceAddress;
+
+    /**
+     * @var Address
+     */
+    private $_shipmentAddress;
+
+    /**
+     * @var PickupPoint
+     */
+    private $_pickupPoint;
+
+    /**
      * @var \DateTime
      */
     private $_deliveryDateTime;
@@ -80,6 +100,7 @@ class Order extends Model {
     }
 
     /**
+     * Define shipping options
      *
      * @param      $method
      * @param null $timing
@@ -92,20 +113,24 @@ class Order extends Model {
     }
 
     /**
+     * Insert shipping and optional billing address
+     * Will handle all the parameters to be set in the message
+     *
      * @param Address      $shipmentAddress
      * @param Address|null $invoiceAddress
      */
     public function setAddresses(Address $shipmentAddress, Address $invoiceAddress = null) {
-        $this->_setProperties($shipmentAddress, 'shipTo');
-        $this->_setProperties((($invoiceAddress === null) ? $shipmentAddress : $invoiceAddress), 'invoiceTo');
+        $this->_shipmentAddress = $shipmentAddress;
+        $this->_invoiceAddress = (($invoiceAddress === null) ? $shipmentAddress : $invoiceAddress);
     }
 
     /**
+     * Shortcut to set the customer information into shipping and billing information
+     *
      * @param Customer $customer
      */
     public function setCustomer(Customer $customer) {
-        $this->_setProperties($customer, 'shipTo');
-        $this->_setProperties($customer, 'invoiceTo');
+        $this->_customer = $customer;
     }
 
     /**
@@ -123,11 +148,12 @@ class Order extends Model {
      * @param PickupPoint $pickupPoint
      */
     public function setPickupPoint(PickupPoint $pickupPoint) {
-        $this->_setProperties($pickupPoint, 'shipTo');
-        $this->_shipmentProvider = '03533';
+        $this->_pickupPoint = $pickupPoint;
     }
 
     /**
+     * Add an orderline
+     *
      * @param $sku
      * @param $quantity
      */
@@ -139,7 +165,7 @@ class Order extends Model {
     }
 
     /**
-     * Do some funky stuff in order to set some properties properly
+     * Prepare the model
      *
      * @return bool
      */
@@ -149,7 +175,6 @@ class Order extends Model {
         $this->orderTime = $this->_dateTime->format('H:i:s');
         $this->onlyHomeAddress = false;
         $this->vendorNo = '';
-        $this->shippingAgentCode = $this->_shipmentProvider;
         $this->language = 'NL';
 
         if ($this->_deliveryDateTime !== null) {
@@ -157,8 +182,29 @@ class Order extends Model {
             $this->deliveryTime = $this->_deliveryDateTime->format('H:i:s');
         }
 
+        //Set shipping and billing information based on customer and address data
+        $this->_setProperties($this->_shipmentAddress, 'shipTo');
+        $this->_setProperties($this->_invoiceAddress, 'invoiceTo');
+        $this->_setProperties($this->_customer, 'shipTo');
+        $this->_setProperties($this->_customer, 'invoiceTo');
+
+        //Override some fields in case of a pickup point
+        if ($this->_pickupPoint !== null) {
+            $this->_setProperties($this->_pickupPoint, 'shipTo');
+            $this->shippingAgentCode = '03533';
+        } else {
+            $this->shippingAgentCode = $this->_shipmentProvider;
+        }
+
         if ($this->_shipmentTiming !== null) {
             list($this->shipmentProductOption, $this->shipmentOption) = explode('|', $this->_shipmentTiming);
+        }
+
+        /**
+         * Make sure we have a phoneNumber placeholder
+         */
+        if ($this->shipToPhone === null) {
+            $this->shipToPhone = 0;
         }
 
         return parent::beforeValidate();
@@ -172,29 +218,12 @@ class Order extends Model {
             parent::getAttributes(),
         ];
 
+        //Format the order lines
         foreach ($this->_lines as $line) {
             $array['deliveryOrderLines'][] = ['deliveryOrderLine' => $line->getAttributes()];
         }
 
         return $array;
-    }
-
-    /**
-     * Return mapping
-     */
-    protected function getMap() {
-        return [
-            'orderNumber'                => 'orderNo',
-            'webOrderNumber'             => 'webOrderNo',
-            'deliveryDate'               => 'requestedDeliveryDate',
-            'deliveryTime'               => 'requestedDeliveryTime',
-            'shipToCompany'              => 'shipToCompanyName',
-            'shipToHouseNumber'          => 'shipToHouseNo',
-            'shipToHouseNumberSuffix'    => 'shipToAnnex',
-            'invoiceToCompany'           => 'invoiceToCompanyName',
-            'invoiceToHouseNumber'       => 'invoiceToHouseNo',
-            'invoiceToHouseNumberSuffix' => 'invoiceToAnnex',
-        ];
     }
 
     /**
@@ -243,14 +272,32 @@ class Order extends Model {
     }
 
     /**
+     * Return mapping
+     */
+    protected function getMap() {
+        return [
+            'orderNumber'                => 'orderNo',
+            'webOrderNumber'             => 'webOrderNo',
+            'deliveryDate'               => 'requestedDeliveryDate',
+            'deliveryTime'               => 'requestedDeliveryTime',
+            'shipToCompany'              => 'shipToCompanyName',
+            'shipToHouseNumber'          => 'shipToHouseNo',
+            'shipToHouseNumberSuffix'    => 'shipToAnnex',
+            'invoiceToCompany'           => 'invoiceToCompanyName',
+            'invoiceToHouseNumber'       => 'invoiceToHouseNo',
+            'invoiceToHouseNumberSuffix' => 'invoiceToAnnex',
+        ];
+    }
+
+    /**
      * Set the properties for shipTo or invoiceTo
-     * @param        $address
+     *
+     * @param        $model
      * @param string $prefix
      */
-    private function _setProperties(Model $address, $prefix = 'shipTo') {
-        foreach ($address->getAttributes() as $key => $value) {
-            $newKey = $prefix . ucfirst($key);
-            $this->$newKey = $value;
+    private function _setProperties(Model $model, $prefix = 'shipTo') {
+        foreach ($model->getAttributes() as $key => $value) {
+            $this->{$prefix . ucfirst($key)} = $value;
         }
     }
 }

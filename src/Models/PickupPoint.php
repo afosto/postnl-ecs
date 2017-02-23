@@ -15,7 +15,6 @@ use Afosto\Ecs\Components\Model;
  * @property string $city
  * @property string $countryCode
  * @property string $houseNumberSuffix
- * @property string $phoneNumber
  */
 class PickupPoint extends Model {
 

@@ -27,7 +27,7 @@ class Customer extends Model {
             ['firstName', 'string', false, 35],
             ['lastName', 'string', true, 35],
             ['company', 'string', false, 35],
-            ['phoneNumber', 'string', true, 17],
+            ['phoneNumber', 'string', false, 17],
             ['title', 'string', false, 10],
             ['email', 'string', false, 50],
         ];
