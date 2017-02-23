@@ -3,6 +3,7 @@
 namespace Afosto\Ecs\Models;
 
 use Afosto\Ecs\Components\Model;
+use Afosto\Ecs\Helpers\ShipmentMethodHelper;
 
 /**
  * Class Order
@@ -170,7 +171,6 @@ class Order extends Model {
      * @return bool
      */
     public function beforeValidate() {
-        $this->webOrderNumber = $this->orderNumber;
         $this->orderDate = $this->_dateTime->format('Y-m-d');
         $this->orderTime = $this->_dateTime->format('H:i:s');
         $this->onlyHomeAddress = false;
@@ -191,7 +191,7 @@ class Order extends Model {
         //Override some fields in case of a pickup point
         if ($this->_pickupPoint !== null) {
             $this->_setProperties($this->_pickupPoint, 'shipTo');
-            $this->shippingAgentCode = '03533';
+            $this->shippingAgentCode = ShipmentMethodHelper::METHOD_PICKUP_POINT;
         } else {
             $this->shippingAgentCode = $this->_shipmentProvider;
         }
@@ -205,6 +205,13 @@ class Order extends Model {
          */
         if ($this->shipToPhone === null) {
             $this->shipToPhone = 0;
+        }
+
+        /**
+         * Make sure we have a webOrderNumber
+         */
+        if ($this->webOrderNumber === null) {
+            $this->webOrderNumber = $this->orderNumber;
         }
 
         return parent::beforeValidate();

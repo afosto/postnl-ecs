@@ -25,6 +25,11 @@ class ShipmentMethodHelper {
     CONST METHOD_HOME_ADDRESS_STANDARD = '03385';
 
     /**
+     * Postnl Pakjegemak
+     */
+    CONST METHOD_PICKUP_POINT = '03533';
+
+    /**
      * Receive before 10 o'clock
      */
     CONST TIMING_BEFORE_10 = '118|007';
