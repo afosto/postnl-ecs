@@ -35,6 +35,17 @@ class TrackTrace extends Model {
     }
 
     /**
+     * Map incomming data
+     *
+     * @param array $data
+     */
+    public function setAttributes($data) {
+        foreach ($data as $key => $value) {
+            $this->{$this->getFormattedKey($key)} = $value;
+        }
+    }
+
+    /**
      * Formats the trackTrace code
      * Might contain multiple codes that are comma-separated. If so return only the first but make it possible to
      * obtain the other codes through getAllTrackTraceCodes()

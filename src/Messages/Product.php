@@ -31,10 +31,10 @@ class Product extends Message {
     /**
      * @return array
      */
-    protected function toArray() {
+    protected function getModel() {
         $array = [];
         foreach ($this->parts as $item) {
-            $array['items'][] = $item->getAttributes();
+            $array['items'][] = $item->getModel();
         }
 
         return $array;

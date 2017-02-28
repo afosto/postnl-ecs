@@ -107,7 +107,7 @@ abstract class Message {
     /**
      * @return mixed
      */
-    protected abstract function toArray();
+    protected abstract function getModel();
 
     /**
      * Return the date part for the filename
@@ -130,7 +130,7 @@ abstract class Message {
             'messageNo' => $this->_messageNumber,
             'date'      => $this->_dateTime->format('Y-m-d'),
             'time'      => $this->_dateTime->format('H:i:s'),
-            $this->toArray(),
+            $this->getModel(),
         ]);
     }
 

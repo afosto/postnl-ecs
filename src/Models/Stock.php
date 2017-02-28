@@ -26,6 +26,17 @@ class Stock extends Model {
     }
 
     /**
+     * Map incomming data
+     *
+     * @param array $data
+     */
+    public function setAttributes($data) {
+        foreach ($data as $key => $value) {
+            $this->{$this->getFormattedKey($key)} = $value;
+        }
+    }
+
+    /**
      * Format the stock accordingly
      */
     public function formatStock() {

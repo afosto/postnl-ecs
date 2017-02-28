@@ -15,7 +15,14 @@ class MessageHelper {
      */
     public static function listMessages($directory) {
         $messages = [];
-        foreach (App::getInstance()->getFilesystem()->listContents($directory) as $metaData) {
+        $files = App::getInstance()->getFilesystem()->listContents($directory);
+
+        //Sort oldest files first in case of a queue
+        uasort($files, function ($file1, $file2) {
+            return $file1['timestamp'] > $file2['timestamp'];
+        });
+
+        foreach ($files as $metaData) {
             $contents = App::getInstance()->getFilesystem()->read($metaData['path']);
             $message['content'] = json_decode(json_encode(simplexml_load_string($contents)), true);
             $message['path'] = $metaData['path'];

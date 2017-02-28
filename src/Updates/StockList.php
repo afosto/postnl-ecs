@@ -2,14 +2,14 @@
 namespace Afosto\Ecs\Updates;
 
 use Afosto\Ecs\Models\Stock;
-use Afosto\Ecs\Components\UpdateMessage;
+use Afosto\Ecs\Components\Update;
 
 /**
  * Class StockList returns all the stock
  *
  * @package Afosto\Ecs\Updates
  */
-class StockList extends UpdateMessage {
+class StockList extends Update {
 
     /**
      * Format the message into models
@@ -24,7 +24,7 @@ class StockList extends UpdateMessage {
             $model = new Stock();
             $model->setAttributes($stockData);
             $model->validate();
-            $models[] = $model;
+            $models[$model->sku] = $model;
         }
 
         return $models;

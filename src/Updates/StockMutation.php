@@ -3,7 +3,7 @@
 namespace Afosto\Ecs\Updates;
 
 use Afosto\Ecs\Models\Stock;
-use Afosto\Ecs\Components\UpdateMessage;
+use Afosto\Ecs\Components\Update;
 
 /**
  * Class StockMutation returns a list of mutations
@@ -11,7 +11,7 @@ use Afosto\Ecs\Components\UpdateMessage;
  * @package Afosto\Ecs\Updates
  * @property \Afosto\Ecs\Models\Stock[] $models
  */
-class StockMutation extends UpdateMessage {
+class StockMutation extends Update {
 
     /**
      * Format the message into models
@@ -27,7 +27,7 @@ class StockMutation extends UpdateMessage {
             $model = new Stock();
             $model->setAttributes($stockData);
             $model->validate();
-            $models[] = $model;
+            $models[$model->sku] = $model;
         }
 
         return $models;

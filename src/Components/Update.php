@@ -8,7 +8,7 @@ use Afosto\Ecs\Helpers\MessageHelper;
  * Class UpdateMessage
  * @package Afosto\Ecs\Components
  */
-abstract class UpdateMessage {
+abstract class Update {
 
     /**
      * The file paths, used as reference to mark the message(s) as read
@@ -46,7 +46,7 @@ abstract class UpdateMessage {
         foreach ($files as $file) {
             $update = new static();
             $this->_paths[] = $file['path'];
-            $this->_models = array_merge($this->_models, $update->processMessage($file['content']));
+            $this->_models = array_replace_recursive($this->_models, $update->processMessage($file['content']));
         }
 
         return $this->_models;

@@ -1,7 +1,7 @@
 <?php
 namespace Afosto\Ecs\Updates;
 
-use Afosto\Ecs\Components\UpdateMessage;
+use Afosto\Ecs\Components\Update;
 use Afosto\Ecs\Models\TrackTrace;
 
 /**
@@ -9,7 +9,7 @@ use Afosto\Ecs\Models\TrackTrace;
  *
  * @package Afosto\Ecs\Updates
  */
-class Shipment extends UpdateMessage {
+class Shipment extends Update {
 
     /**
      * Format the message into models
@@ -24,7 +24,7 @@ class Shipment extends UpdateMessage {
             $model = new TrackTrace();
             $model->setAttributes($data[$this->getType()]);
             $model->validate();
-            $models[] = $model;
+            $models[$model->orderNumber] = $model;
         }
 
         return $models;

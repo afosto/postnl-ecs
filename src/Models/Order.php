@@ -220,14 +220,14 @@ class Order extends Model {
     /**
      * @return array
      */
-    public function getAttributes() {
+    public function getModel() {
         $array = [
-            parent::getAttributes(),
+            parent::getModel(),
         ];
 
         //Format the order lines
         foreach ($this->_lines as $line) {
-            $array['deliveryOrderLines'][] = ['deliveryOrderLine' => $line->getAttributes()];
+            $array['deliveryOrderLines'][] = ['deliveryOrderLine' => $line->getModel()];
         }
 
         return $array;
@@ -303,7 +303,7 @@ class Order extends Model {
      * @param string $prefix
      */
     private function _setProperties(Model $model, $prefix = 'shipTo') {
-        foreach ($model->getAttributes() as $key => $value) {
+        foreach ($model->getModel() as $key => $value) {
             $this->{$prefix . ucfirst($key)} = $value;
         }
     }

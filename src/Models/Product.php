@@ -42,9 +42,9 @@ class Product extends Model {
     /**
      * @return array
      */
-    public function getAttributes() {
+    public function getModel() {
         return [
-            'item' => parent::getAttributes(),
+            'item' => parent::getModel(),
         ];
     }
 

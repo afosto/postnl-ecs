@@ -32,10 +32,10 @@ class Order extends Message {
     /**
      * @return mixed
      */
-    protected function toArray() {
+    protected function getModel() {
         $array = [];
         foreach ($this->parts as $order) {
-            $array['deliveryOrders'][] = ['deliveryOrder' => $order->getAttributes()];
+            $array['deliveryOrders'][] = ['deliveryOrder' => $order->getModel()];
         }
 
         return $array;

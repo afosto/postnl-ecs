@@ -24,7 +24,7 @@
     "league/flysystem-sftp": "^1.0",
     "league/flysystem": "^1.0",
     "sabre/xml": "^1.5",
-    "afosto/bp": "^0.1.1"
+    "afosto/bp": "^1.0.0"
   },
   "require-dev": {
     "filp/whoops": "^2.1",
