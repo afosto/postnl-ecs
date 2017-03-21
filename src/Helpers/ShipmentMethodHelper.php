@@ -5,29 +5,39 @@ namespace Afosto\Ecs\Helpers;
 class ShipmentMethodHelper {
 
     /**
-     * PostNL standard
+     * PostNL standard within NL
      */
     const METHOD_STANDARD = '03085';
 
     /**
-     * PostNL home address only & signature when received
+     * PostNL home address only & signature when received within NL
      */
     CONST METHOD_HOME_ADDRESS_SIGNATURE = '03089';
 
     /**
-     * PostNL signature when received
+     * PostNL signature when received within NL
      */
     CONST METHOD_SIGNATURE = '03189';
 
     /**
-     * PostNL standard home address only
+     * PostNL standard home address only within NL
      */
     CONST METHOD_HOME_ADDRESS_STANDARD = '03385';
 
     /**
-     * Postnl Pakjegemak
+     * Postnl Pakjegemak within NL
      */
     CONST METHOD_PICKUP_POINT = '03533';
+
+    /**
+     * Standard within EU
+     */
+    CONST METHOD_STANDARD_EU = '04944';
+
+    /**
+     * Rest of the world
+     */
+    CONST METHOD_STANDARD_WORLD = '04945';
 
     /**
      * Receive before 10 o'clock
@@ -57,23 +67,33 @@ class ShipmentMethodHelper {
     public static function getMethods($filterImplemented = true) {
         $methods = [
             [
-                'label'       => 'Standaard',
+                'label'       => 'Standaard NL',
                 'code'        => self::METHOD_STANDARD,
                 'implemented' => true,
             ],
             [
-                'label'       => 'Thuisadres handtekening',
+                'label'       => 'Thuisadres handtekening NL',
                 'code'        => self::METHOD_HOME_ADDRESS_SIGNATURE,
                 'implemented' => false,
             ],
             [
-                'label'       => 'Handtekening',
+                'label'       => 'Handtekening NL',
                 'code'        => self::METHOD_SIGNATURE,
                 'implemented' => false,
             ],
             [
-                'label'       => 'Thuisadres standaard',
+                'label'       => 'Thuisadres standaard NL',
                 'code'        => self::METHOD_HOME_ADDRESS_STANDARD,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'Standaard EU',
+                'code'        => self::METHOD_STANDARD_EU,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'Standaard buiten EU',
+                'code'        => self::METHOD_STANDARD_WORLD,
                 'implemented' => true,
             ],
         ];
