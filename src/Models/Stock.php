@@ -26,17 +26,6 @@ class Stock extends Model {
     }
 
     /**
-     * Map incomming data
-     *
-     * @param array $data
-     */
-    public function setAttributes($data) {
-        foreach ($data as $key => $value) {
-            $this->{$this->getFormattedKey($key)} = $value;
-        }
-    }
-
-    /**
      * Format the stock accordingly
      */
     public function formatStock() {
@@ -50,12 +39,9 @@ class Stock extends Model {
      */
     protected function getMap() {
         return [
-            'SKU'               => 'sku',
-            'stockdtl_itemnum'  => 'sku',
-            'itemNo'            => 'sku',
-            'currentStockLevel' => 'count',
-            'stockdtl_fysstock' => 'count',
-            'quantity'          => 'count',
+            'sku'   => 'stockdtl_itemnum',
+            'count' => 'stockdtl_fysstock',
+
         ];
     }
 

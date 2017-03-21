@@ -20,7 +20,8 @@ class StockList extends Update {
      */
     public function processMessage($data) {
         $models = [];
-        foreach ($data[$this->getType()] as $stockData) {
+        $data = (!is_numeric(key($data[$this->getType()])) ? [$data[$this->getType()]] : $data[$this->getType()]);
+        foreach ($data as $stockData) {
             $model = new Stock();
             $model->setAttributes($stockData);
             $model->validate();
