@@ -84,7 +84,7 @@ class TrackTrace extends Model {
      */
     protected function getMap() {
         return [
-            'orderNo' => 'orderNumber',
+            'orderNumber' => 'orderNo',
         ];
     }
 }
