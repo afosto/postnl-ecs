@@ -10,7 +10,7 @@ use Afosto\Ecs\Components\Model;
  *
  * @property string  $sku
  * @property string  $shortDescription
- * @property string  $description
+ * @property string  $longDescription
  * @property string  $measurementUnit
  * @property integer $height
  * @property integer $width
@@ -32,7 +32,7 @@ class Product extends Model {
         return [
             'sku'              => 'itemNo',
             'shortDescription' => 'description',
-            'description'      => 'description2',
+            'longDescription'  => 'description2',
             'measurementUnit'  => 'unitOfMeasure',
             'mpn'              => 'vendorItemNo',
             'ean'              => 'eanNo',
@@ -73,7 +73,7 @@ class Product extends Model {
         return [
             ['sku', 'string', true, 25],
             ['shortDescription', 'string', true, 50],
-            ['description', 'string', false, 50],
+            ['longDescription', 'string', false, 50],
             ['measurementUnit', 'string', false],
             ['height', 'integer', true],
             ['width', 'integer', true],
