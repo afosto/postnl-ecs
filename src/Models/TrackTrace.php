@@ -30,7 +30,7 @@ class TrackTrace extends Model {
     public function getRules() {
         return [
             ['orderNumber', 'string', true],
-            ['trackAndTraceCode', 'string', false, 'formatTrackTrace'],
+            ['trackAndTraceCode', 'string', false],
         ];
     }
 
@@ -46,11 +46,10 @@ class TrackTrace extends Model {
     }
 
     /**
-     * Formats the trackTrace code
-     * Might contain multiple codes that are comma-separated. If so return only the first but make it possible to
-     * obtain the other codes through getAllTrackTraceCodes()
+     * Run before validation
+     * @return bool
      */
-    public function formatTrackTrace() {
+    public function beforeValidate() {
         //Handle the data in case of an empty trackTrace field
         if ((is_array($this->trackAndTraceCode) && empty($this->trackAndTraceCode)) || trim($this->trackAndTraceCode) == '') {
             $this->trackAndTraceCode = null;
@@ -59,6 +58,8 @@ class TrackTrace extends Model {
             $this->_codes = explode(';', $this->trackAndTraceCode);
             $this->trackAndTraceCode = current($this->_codes);
         }
+
+        return parent::beforeValidate();
     }
 
     /**
