@@ -40,6 +40,21 @@ class ShipmentMethodHelper {
     CONST METHOD_STANDARD_WORLD = '04945';
 
     /**
+     * Method mailbox (envelope) with TrackTrace
+     */
+    CONST METHOD_MAILBOX_TT = '02928';
+
+    /**
+     * Method mailbox (envelope) 24 hours
+     */
+    CONST METHOD_MAILBOX_24H = '05500';
+
+    /**
+     * Method mailbox (envelope) 72 hours
+     */
+    CONST METHOD_MAILBOX_72H = '05566';
+
+    /**
      * Receive before 10 o'clock
      */
     CONST TIMING_BEFORE_10 = '118|007';
@@ -94,6 +109,21 @@ class ShipmentMethodHelper {
             [
                 'label'       => 'Standaard buiten EU',
                 'code'        => self::METHOD_STANDARD_WORLD,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'Brievenbus met Track&Trace',
+                'code'        => self::METHOD_MAILBOX_TT,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'Brievenbus 24 uur',
+                'code'        => self::METHOD_MAILBOX_24H,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'Brievenbus 72 uur',
+                'code'        => self::METHOD_MAILBOX_72H,
                 'implemented' => true,
             ],
         ];
