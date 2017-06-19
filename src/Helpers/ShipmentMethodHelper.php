@@ -87,6 +87,11 @@ class ShipmentMethodHelper {
                 'implemented' => true,
             ],
             [
+                'label'       => 'Pakjegemak',
+                'code'        => self::METHOD_PICKUP_POINT,
+                'implemented' => true,
+            ],
+            [
                 'label'       => 'Thuisadres handtekening NL',
                 'code'        => self::METHOD_HOME_ADDRESS_SIGNATURE,
                 'implemented' => false,
